@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sevenchord</groupId>
+	<artifactId>web-setting</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<parent>
+		<groupId>org.terasoluna.gfw</groupId>
+		<artifactId>terasoluna-gfw-parent</artifactId>
+		<version>5.7.1.RELEASE</version>
+	</parent>
+
+	<name>TERASOLUNA Server Framework for Java (5.x) Web Blank Project (MyBatis3)</name>
+	<description>Web Blank Project (MyBatis3) using TERASOLUNA Server Framework for Java (5.x)</description>
+	<url>http://terasoluna.org</url>
+	<inceptionYear>2013</inceptionYear>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>manual</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name>TERASOLUNA Framework Team</name>
+		<url>http://terasoluna.org</url>
+	</organization>
+
+	<properties>
+		<encoding>UTF-8</encoding>
+		<java-version>11</java-version>
+		<org.apache.maven.plugins.maven-war-plugin.version>3.3.1</org.apache.maven.plugins.maven-war-plugin.version>
+		<org.codehaus.mojo.build-helper-maven-plugin.version>3.2.0</org.codehaus.mojo.build-helper-maven-plugin.version>
+		<terasoluna.version>5.7.1.RELEASE</terasoluna.version>
+		<sevenchord.version>1.0.0-SNAPSHOT</sevenchord.version>		<!-- <postgresql.version>42.3.1</postgresql.version> -->
+	</properties>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-falesafe-plugin</artifactId>
+					<version>3.0.0-M5</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>integraion-test</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.0.0-M5</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${org.codehaus.mojo.build-helper-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>add-source</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>add-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<source>src/generated/java</source>
+								</sources>
+							</configuration>
+						</execution>
+						<execution>
+							<id>add-resource</id>
+							<phase>generate-resources</phase>
+							<goals>
+								<goal>add-resource</goal>
+							</goals>
+							<configuration>
+								<resources>
+									<resource>
+										<directory>src/generated/resources</directory>
+									</resource>
+								</resources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${org.apache.maven.plugins.maven-war-plugin.version}</version>
+					<configuration>
+						<warName>${project.artifactId}</warName>
+						<archive>
+							<addMavenDescriptor>false</addMavenDescriptor>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							</manifest>
+						</archive>
+						<webResources>
+							<resource>
+								<directory>../common/src/main/resources</directory>
+								<targetPath>WEB-INF/classes</targetPath>
+							</resource>
+						</webResources>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<source>${java-version}</source>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- == Begin 7chord == -->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>common</artifactId>
+				<version>${sevenchord.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>web</artifactId>
+				<version>${sevenchord.version}</version>
+			</dependency>
+			<!-- == End 7chord == -->
+
+			<!-- == Begin Coding Support == -->
+			<!-- <dependency> <groupId>org.projectlombok</groupId> <artifactId>lombok</artifactId> 
+				<scope>provided</scope> </dependency> -->
+			<!-- == End Coding Support == -->
+
+		</dependencies>
+	</dependencyManagement>
+
+	<profiles>
+		<profile>
+			<id>it</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/it</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
+</project>
