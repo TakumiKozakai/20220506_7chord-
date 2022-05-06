@@ -129,26 +129,6 @@
 				<version>5.8.1</version>
 			</dependency>
 
-			<!-- REMOVE THIS LINE IF YOU USE Spring Test DBUnit -->
-			<dependency>
-				<groupId>org.dbunit</groupId>
-				<artifactId>dbunit</artifactId>
-				<version>${dbunit.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.github.springtestdbunit</groupId>
-				<artifactId>spring-test-dbunit</artifactId>
-				<version>${spring.test.dbunit.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.poi</groupId>
-				<artifactId>poi-ooxml</artifactId>
-				<scope>test</scope>
-			</dependency>
-			<!-- == End Unit Test == -->
-
 			<!-- == Begin Coding Support == -->
 			<!-- <dependency> <groupId>org.projectlombok</groupId> <artifactId>lombok</artifactId> 
 				<scope>provided</scope> </dependency> -->
